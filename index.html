@@ -4,9 +4,141 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+      integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="style.css" />
     <title>Levi's Weather App</title>
   </head>
   <body>
+    <header>
+        <div class="jumbotron jumbotron-fluid bg-dark text-white mb-0">
+            <div class="container-fluid">
+              <h1 class="display-4">Weather Dashboard</h1>
+            </div>
+          </div>
+      </header>
+      <main>
+        <div class="row">
+            <div class="col-2 pr-3 pt-3 bg-light mr-2">
+              <div class="row searchBar ml-1">
+                <label for="searchBar" >Search for a city:</label>
+                <input
+                  name="searchBar"
+                  type="text"
+                  class="form-control col-9"
+                  aria-label="Sizing example input"
+                  aria-describedby="inputGroup-sizing-default"
+                /><button type="button" class="btn btn-primary">
+                  <i class="bi bi-search primary" style="font-size: large"></i>
+                </button>
+              </div>
+              <div class="card row">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">city 1</li>
+                  <li class="list-group-item">city 2</li>
+                  <li class="list-group-item">city 3</li>
+                </ul>
+              </div>
+            </div>
+      
+            <div class="col-9 weatherDisplays">
+              <div class="row">
+                <div class="card featuredWether col-12 my-3 ">
+                  <div class="card-body">
+                    <h5 class="card-title">City Name (00/00/0000) Icon</h5>
+                    <p class="card-text featuredTemp">Temperature</p>
+                    <p class="card-text featuredHumidity">Humidity</p>
+                    <p class="card-text featuredWind">Wind Speed</p>
+                    <p class="card-text featuredUV">
+                      UV index: <span class="highlightedUV">00</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="row"><h3 class="col-12">5 Day Forcast</h3></div>
+              <div class="row">
+                <div class="col-2 mx-3 day1">
+                  <div class="card bg-primary rounded text-white">
+                    <div class="card-body">
+                      <h5 class="card-title">00/00/0000</h5>
+                      <p class="my-5">ICON</p>
+                      <p class="card-text">Temp: <span class="cardTemp1">00</span>&#8457</p>
+                      <p class="card-text">
+                        Humidity: <span class="cardHumidity1">00</span>%
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-2 mx-3 day2">
+                  <div class="card bg-primary rounded text-white">
+                    <div class="card-body">
+                      <h5 class="card-title">00/00/0000</h5>
+                      <p class="my-5">ICON</p>
+                      <p class="card-text">Temp: <span class="cardTemp2">00</span>&#8457</p>
+                      <p class="card-text">
+                        Humidity: <span class="cardHumidity2">00</span>%
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-2 mx-3 day3">
+                  <div class="card bg-primary rounded text-white">
+                    <div class="card-body">
+                      <h5 class="card-title">00/00/0000</h5>
+                      <p class="my-5">ICON</p>
+                      <p class="card-text">Temp: <span class="cardTemp3">00</span>&#8457</p>
+                      <p class="card-text">
+                        Humidity: <span class="cardHumidity3">00</span>%
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-2 mx-3 day4">
+                  <div class="card bg-primary rounded text-white">
+                    <div class="card-body">
+                      <h5 class="card-title">00/00/0000</h5>
+                      <p class="my-5">ICON</p>
+                      <p class="card-text">Temp: <span class="cardTemp4">00</span>&#8457</p>
+                      <p class="card-text">
+                        Humidity: <span class="cardHumidity4">00</span>%
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-2 mx-3 day5">
+                  <div class="card bg-primary rounded text-white">
+                    <div class="card-body">
+                      <h5 class="card-title">00/00/0000</h5>
+                      <p class="my-5">ICON</p>
+                      <p class="card-text">Temp: <span class="cardTemp5">00</span>&#8457</p>
+                      <p class="card-text">
+                        Humidity: <span class="cardHumidity5">00</span>%
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </main>
     <script src="script.js"></script>
   </body>
 </html>
