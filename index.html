@@ -24,6 +24,7 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
     />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css" />
     <title>Levi's Weather App</title>
   </head>
@@ -37,7 +38,7 @@
       </header>
       <main>
         <div class="row">
-            <div class="col-2 pr-3 pt-3 bg-light mr-2">
+            <div class="col-md-2 col-12 pr-3 pt-3 bg-light mr-2">
               <div class="row searchBar ml-1">
                 <label for="searchBar" >Search for a city:</label>
                 <input
@@ -59,23 +60,23 @@
               </div>
             </div>
       
-            <div class="col-9 weatherDisplays">
+            <div class="col-md-9 col-12 weatherDisplays">
               <div class="row">
                 <div class="card featuredWether col-12 my-3 ">
                   <div class="card-body">
-                    <h5 class="card-title">City Name (00/00/0000) Icon</h5>
-                    <p class="card-text featuredTemp">Temperature</p>
-                    <p class="card-text featuredHumidity">Humidity</p>
-                    <p class="card-text featuredWind">Wind Speed</p>
+                    <h5 class="card-title "> <span class="featuredCityName"></span> <span class="currentDate"></span> <span class="weatherIcon"></span></h5>
+                    <p class="card-text ">Temperature: <span class="featuredTemp"></span>&#8457</p>
+                    <p class="card-text ">Humidity: <span class="featuredHumidity"></span>%</p>
+                    <p class="card-text ">Wind Speed: <span class="featuredWind"></span>MPH</p>
                     <p class="card-text featuredUV">
                       UV index: <span class="highlightedUV">00</span>
                     </p>
                   </div>
                 </div>
               </div>
-              <div class="row"><h3 class="col-12">5 Day Forcast</h3></div>
+              <div class="row"><h3 class="col-12 ml-3">5 Day Forcast</h3></div>
               <div class="row">
-                <div class="col-2 mx-3 day1">
+                <div class="col-md-2 col-12 mb-2 mx-3 day1">
                   <div class="card bg-primary rounded text-white">
                     <div class="card-body">
                       <h5 class="card-title">00/00/0000</h5>
@@ -87,7 +88,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-2 mx-3 day2">
+                <div class="col-md-2 col-12 mb-2 mx-3 day2">
                   <div class="card bg-primary rounded text-white">
                     <div class="card-body">
                       <h5 class="card-title">00/00/0000</h5>
@@ -99,7 +100,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-2 mx-3 day3">
+                <div class="col-md-2 col-12 mb-2 mx-3 day3">
                   <div class="card bg-primary rounded text-white">
                     <div class="card-body">
                       <h5 class="card-title">00/00/0000</h5>
@@ -111,7 +112,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-2 mx-3 day4">
+                <div class="col-md-2 col-12 mb-2 mx-3 day4">
                   <div class="card bg-primary rounded text-white">
                     <div class="card-body">
                       <h5 class="card-title">00/00/0000</h5>
@@ -123,7 +124,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-2 mx-3 day5">
+                <div class="col-md-2 col-12 mb-2 mx-3 day5">
                   <div class="card bg-primary rounded text-white">
                     <div class="card-body">
                       <h5 class="card-title">00/00/0000</h5>
@@ -139,6 +140,7 @@
             </div>
           </div>
       </main>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
