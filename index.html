@@ -29,25 +29,27 @@
     <title>Levi's Weather App</title>
   </head>
   <body>
-    <header>
+      <header>
         <div class="jumbotron jumbotron-fluid bg-dark text-white mb-0">
-            <div class="container-fluid">
+            <div >
               <h1 class="display-4">Weather Dashboard</h1>
             </div>
-          </div>
+        </div>
       </header>
       <main>
-        <div class="row">
-            <div class="col-md-2 col-12 pr-3 pt-3 bg-light mr-2">
+        <div class="row" style="margin: auto;">
+            <div class="col-md-2 col-12 pr-3 pt-3 bg-light ">
               <div class="row searchBar ml-1">
                 <label for="searchBar" >Search for a city:</label>
                 <input
+                placeholder="City Name"
+                  id="searchBar"
                   name="searchBar"
                   type="text"
                   class="form-control col-9"
                   aria-label="Sizing example input"
                   aria-describedby="inputGroup-sizing-default"
-                /><button type="button" class="btn btn-primary">
+                /><button id="searchButton" type="submit" class="btn btn-primary">
                   <i class="bi bi-search primary" style="font-size: large"></i>
                 </button>
               </div>
@@ -60,7 +62,7 @@
               </div>
             </div>
       
-            <div class="col-md-9 col-12 weatherDisplays">
+            <div class="col-md-10 col-12 weatherDisplays">
               <div class="row">
                 <div class="card featuredWether col-12 my-3 ">
                   <div class="card-body">
