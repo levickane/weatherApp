@@ -23,6 +23,9 @@ fetch(requestUrl)
     var sunnyWithCloud = $('<i class="bi bi-cloud-sun"></i>')
     var sunny = $('<i class="bi bi-brightness-high"></i>')
 
+    //finish these icons and use the if statment to check on the
+    //icon code number. Example: 11d or 13d or 10d or 09d etc
+
     if (cloudSun > 75) {
       weatherIcon.append(cloudy)
     } else if (cloudSun <= 75 && cloudSun > 50) {
@@ -37,7 +40,7 @@ fetch(requestUrl)
     featuredTemp.append(fTemp)
     featuredHumidity.append(data.main.humidity)
     featuredWind.append(mph)
-    weatherIcon.append(data.weather[0].icon)
+    // weatherIcon.append(data.weather[0].icon)
   })
 console.log(moment().calendar())
 var currentDate = $('.currentDate')
