@@ -6,3 +6,9 @@ h1 {
 p i {
   font-size: 50px;
 }
+
+.highlightedUV {
+  font-size: large;
+  padding: 5px;
+  border-radius: 10px;
+}
