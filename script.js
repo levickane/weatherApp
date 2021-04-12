@@ -9,7 +9,6 @@ function getMainWeather(cityName) {
       return response.json()
     })
     .then(function (data) {
-      //   console.log(data)
       var featuredCityName = $('.featuredCityName')
       var featuredTemp = $('.featuredTemp')
       var featuredHumidity = $('.featuredHumidity')
@@ -71,7 +70,6 @@ function get5DayForecast(cityName) {
       return response.json()
     })
     .then(function (data) {
-      console.log(data)
       fiveDayList = data.list
       fiveDayDate = $('.fiveDayDate')
       fiveDayDateArray = []
@@ -95,7 +93,6 @@ function get5DayForecast(cityName) {
         var humidity = data.list[i].main.humidity
         fiveDayHumidityArray.push(humidity)
         var weatherIconImg = data.list[i].weather[0].icon
-        console.log(weatherIconImg)
         fiveDayWeatherIconArray.push(weatherIconImg)
       }
       for (var i = 0; i < fiveDayDateArray.length; i++) {
@@ -112,7 +109,6 @@ function get5DayForecast(cityName) {
         var snow = $('<i class="bi bi-snow2"></i>')[0]
         var rain = $('<i class="bi bi-cloud-rain"></i>')[0]
         var thunder = $('<i class="bi bi-cloud-lightning-rain-fill"></i>')[0]
-        console.log(fiveDayList[i])
         if (fiveDayWeatherIconArray[i] == '01d') {
           fiveDayWeatherIcon[i].append(sunny)
         } else if (fiveDayWeatherIconArray[i] == '01n') {
@@ -160,6 +156,49 @@ function get5DayForecast(cityName) {
       }
     })
 }
+function getUvIndex(cityName) {
+  fetch(
+    `https://google-maps-geocoding.p.rapidapi.com/geocode/json?address=${cityName}&language=en`,
+    {
+      method: 'GET',
+      headers: {
+        'x-rapidapi-key': '39525a19f1msh8bd69ea75c04185p1e6577jsn06c9ca822fcc',
+        'x-rapidapi-host': 'google-maps-geocoding.p.rapidapi.com'
+      }
+    }
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      var latitude = data.results[0].geometry.location.lat
+      var longitude = data.results[0].geometry.location.lng
+      return { latitude: latitude, longitude: longitude }
+    })
+    .then((coordinates) => {
+      var lat = coordinates.latitude
+      var lng = coordinates.longitude
+      fetch(
+        `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lng}&appid=b47cbc5dede4579f5550da5d2bb84dc3`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          var highlightedUV = $('.highlightedUV')
+          highlightedUV.text('')
+          var uvIndex = data.current.uvi
+          highlightedUV.append(uvIndex)
+          if (uvIndex < 3) {
+            highlightedUV.attr('style', 'background-color: green')
+          } else if (uvIndex < 6) {
+            highlightedUV.attr('style', 'background-color: yellow')
+          } else if (uvIndex < 8) {
+            highlightedUV.attr('style', 'background-color: orange')
+          } else if (uvIndex < 11) {
+            highlightedUV.attr('style', 'background-color: red')
+          } else {
+            highlightedUV.attr('style', 'background-color: purple')
+          }
+        })
+    })
+}
 
 var searchButton = $('#searchButton')
 var clearSearch = $('#searchBar')
@@ -169,6 +208,7 @@ searchButton.on('click', () => {
 
   getMainWeather(searchBar)
   get5DayForecast(searchBar)
+  getUvIndex(searchBar)
   const historyArray = JSON.parse(localStorage.getItem('searchHistory')) ?? []
   historyArray.push(searchBar)
   localStorage.setItem('searchHistory', JSON.stringify(historyArray))
@@ -183,11 +223,11 @@ for (let searchBar of historyArray) {
 
 function setSearchHistoryLi(searchBar) {
   var newLi = $(`<li class="list-group-item historyLi">`)
-  console.log(searchBar)
   newLi.html(searchBar)
   historyUl.append(newLi)
   newLi.on('click', () => {
     getMainWeather(searchBar)
     get5DayForecast(searchBar)
+    getUvIndex(searchBar)
   })
 }
