@@ -215,11 +215,29 @@ for (let searchBar of historyArray) {
 }
 
 function setSearchHistoryLi(searchBar) {
+  historyChildArray = historyUl.children()
+  console.log(historyUl.children().length)
   var newLi = $(`<li class="list-group-item historyLi">`)
   newLi.html(searchBar)
   historyUl.append(newLi)
+  for (let i = 0; i < historyChildArray.length; i++) {
+    console.log(historyChildArray[i].innerText)
+    if (historyChildArray[i].innerText == searchBar) {
+      newLi.hide()
+    }
+  }
   newLi.on('click', () => {
     getMainWeather(searchBar)
     getUvAnd5Day(searchBar)
   })
 }
+
+// function setSearchHistoryLi(searchBar) {
+//   var newLi = $(`<li class="list-group-item historyLi">`)
+//   newLi.html(searchBar)
+//   historyUl.append(newLi)
+//   newLi.on('click', () => {
+//     getMainWeather(searchBar)
+//     getUvAnd5Day(searchBar)
+//   })
+// }
