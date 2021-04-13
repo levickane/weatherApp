@@ -87,7 +87,6 @@ function getUvAnd5Day(cityName) {
       )
         .then((response) => response.json())
         .then((data) => {
-          console.log(data)
           var highlightedUV = $('.highlightedUV')
           highlightedUV.text('')
           var uvIndex = data.current.uvi
@@ -216,12 +215,10 @@ for (let searchBar of historyArray) {
 
 function setSearchHistoryLi(searchBar) {
   historyChildArray = historyUl.children()
-  console.log(historyUl.children().length)
   var newLi = $(`<li class="list-group-item historyLi">`)
   newLi.html(searchBar)
   historyUl.append(newLi)
   for (let i = 0; i < historyChildArray.length; i++) {
-    console.log(historyChildArray[i].innerText)
     if (historyChildArray[i].innerText == searchBar) {
       newLi.hide()
     }
@@ -231,13 +228,3 @@ function setSearchHistoryLi(searchBar) {
     getUvAnd5Day(searchBar)
   })
 }
-
-// function setSearchHistoryLi(searchBar) {
-//   var newLi = $(`<li class="list-group-item historyLi">`)
-//   newLi.html(searchBar)
-//   historyUl.append(newLi)
-//   newLi.on('click', () => {
-//     getMainWeather(searchBar)
-//     getUvAnd5Day(searchBar)
-//   })
-// }
