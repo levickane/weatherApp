@@ -213,13 +213,14 @@ for (let searchBar of historyArray) {
   setSearchHistoryLi(searchBar)
 }
 
+//does not allow for duplicate searches to append to the history
 function setSearchHistoryLi(searchBar) {
   historyChildArray = historyUl.children()
   var newLi = $(`<li class="list-group-item historyLi">`)
-  newLi.html(searchBar)
+  newLi.html(searchBar.toUpperCase())
   historyUl.append(newLi)
   for (let i = 0; i < historyChildArray.length; i++) {
-    if (historyChildArray[i].innerText == searchBar) {
+    if (historyChildArray[i].innerText == searchBar.toUpperCase()) {
       newLi.hide()
     }
   }
