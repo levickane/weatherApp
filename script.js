@@ -62,101 +62,7 @@ function getMainWeather(cityName) {
     })
 }
 
-function get5DayForecast(cityName) {
-  fetch(
-    `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=b47cbc5dede4579f5550da5d2bb84dc3`
-  )
-    .then(function (response) {
-      return response.json()
-    })
-    .then(function (data) {
-      fiveDayList = data.list
-      fiveDayDate = $('.fiveDayDate')
-      fiveDayDateArray = []
-      fiveDayTemp = $('.tempCard')
-      fiveDayTempArray = []
-      fiveDayHumidity = $('.humidityCard')
-      fiveDayHumidityArray = []
-      fiveDayWeatherIcon = $('.fiveDayWeatherIcon')
-      fiveDayWeatherIconArray = []
-      fiveDayDate.text('')
-      fiveDayTemp.text('')
-      fiveDayHumidity.text('')
-      fiveDayWeatherIcon.text('')
-      for (var i = 5; i < fiveDayList.length; i += 8) {
-        var dayDate = moment(fiveDayList[i].dt_txt).format('L')
-        fiveDayDateArray.push(dayDate)
-
-        var kelvinTemp = data.list[i].main.temp
-        var fTemp = ((kelvinTemp - 273.15) * 1.8 + 32).toFixed(1)
-        fiveDayTempArray.push(fTemp)
-        var humidity = data.list[i].main.humidity
-        fiveDayHumidityArray.push(humidity)
-        var weatherIconImg = data.list[i].weather[0].icon
-        fiveDayWeatherIconArray.push(weatherIconImg)
-      }
-      for (var i = 0; i < fiveDayDateArray.length; i++) {
-        fiveDayDate[i].textContent = fiveDayDateArray[i]
-        fiveDayTemp[i].textContent = fiveDayTempArray[i]
-        fiveDayHumidity[i].textContent = fiveDayHumidityArray[i]
-
-        var sunny = $('<i class="bi bi-brightness-high"></i>')[0]
-        var moon = $('<i class="bi bi-moon-stars"></i>')[0]
-        var sunnyWithCloud = $('<i class="bi bi-cloud-sun"></i>')[0]
-        var cloudy = $('<i class="bi bi-cloud-fill"></i>')[0]
-        var heavyClouds = $('<i class="bi bi-clouds-fill"></i>')[0]
-        var foggy = $('<i class="bi bi-cloud-haze"></i>')[0]
-        var snow = $('<i class="bi bi-snow2"></i>')[0]
-        var rain = $('<i class="bi bi-cloud-rain"></i>')[0]
-        var thunder = $('<i class="bi bi-cloud-lightning-rain-fill"></i>')[0]
-        if (fiveDayWeatherIconArray[i] == '01d') {
-          fiveDayWeatherIcon[i].append(sunny)
-        } else if (fiveDayWeatherIconArray[i] == '01n') {
-          fiveDayWeatherIcon[i].append(moon)
-        } else if (
-          fiveDayWeatherIconArray[i] == '02n' ||
-          fiveDayWeatherIconArray[i] == '02d'
-        ) {
-          fiveDayWeatherIcon[i].append(sunnyWithCloud)
-        } else if (
-          fiveDayWeatherIconArray[i] == '03n' ||
-          fiveDayWeatherIconArray[i] == '03d'
-        ) {
-          fiveDayWeatherIcon[i].append(cloudy)
-        } else if (
-          fiveDayWeatherIconArray[i] == '04n' ||
-          fiveDayWeatherIconArray[i] == '04d'
-        ) {
-          fiveDayWeatherIcon[i].append(heavyClouds)
-        } else if (
-          fiveDayWeatherIconArray[i] == '50n' ||
-          fiveDayWeatherIconArray[i] == '50d'
-        ) {
-          fiveDayWeatherIcon[i].append(foggy)
-        } else if (
-          fiveDayWeatherIconArray[i] == '13n' ||
-          fiveDayWeatherIconArray[i] == '13d'
-        ) {
-          fiveDayWeatherIcon[i].append(snow)
-        } else if (
-          fiveDayWeatherIconArray[i] == '09n' ||
-          fiveDayWeatherIconArray[i] == '09d' ||
-          fiveDayWeatherIconArray[i] == '10n' ||
-          fiveDayWeatherIconArray[i] == '10d'
-        ) {
-          fiveDayWeatherIcon[i].append(rain)
-        } else if (
-          fiveDayWeatherIconArray[i] == '11n' ||
-          fiveDayWeatherIconArray[i] == '11d'
-        ) {
-          fiveDayWeatherIcon[i].append(thunder)
-        } else {
-          console.log(`unknown ${fiveDayWeatherIconArray[i]}`)
-        }
-      }
-    })
-}
-function getUvIndex(cityName) {
+function getUvAnd5Day(cityName) {
   fetch(
     `https://google-maps-geocoding.p.rapidapi.com/geocode/json?address=${cityName}&language=en`,
     {
@@ -181,6 +87,7 @@ function getUvIndex(cityName) {
       )
         .then((response) => response.json())
         .then((data) => {
+          console.log(data)
           var highlightedUV = $('.highlightedUV')
           highlightedUV.text('')
           var uvIndex = data.current.uvi
@@ -196,6 +103,93 @@ function getUvIndex(cityName) {
           } else {
             highlightedUV.attr('style', 'background-color: purple')
           }
+          //implement the 5day forecast here
+          fiveDayList = data.daily
+          fiveDayDate = $('.fiveDayDate')
+          fiveDayDateArray = []
+          fiveDayTemp = $('.tempCard')
+          fiveDayTempArray = []
+          fiveDayHumidity = $('.humidityCard')
+          fiveDayHumidityArray = []
+          fiveDayWeatherIcon = $('.fiveDayWeatherIcon')
+          fiveDayWeatherIconArray = []
+          fiveDayDate.text('')
+          fiveDayTemp.text('')
+          fiveDayHumidity.text('')
+          fiveDayWeatherIcon.text('')
+          for (var i = 0; i < 5; i++) {
+            var dayDate = moment(fiveDayList[i].dt_txt).format('L')
+            fiveDayDateArray.push(dayDate)
+
+            var kelvinTemp = data.daily[i].temp.day
+            var fTemp = ((kelvinTemp - 273.15) * 1.8 + 32).toFixed(1)
+            fiveDayTempArray.push(fTemp)
+            var humidity = data.daily[i].humidity
+            fiveDayHumidityArray.push(humidity)
+            var weatherIconImg = data.daily[i].weather[0].icon
+            fiveDayWeatherIconArray.push(weatherIconImg)
+          }
+          for (var i = 0; i < fiveDayDateArray.length; i++) {
+            fiveDayDate[i].textContent = fiveDayDateArray[i]
+            fiveDayTemp[i].textContent = fiveDayTempArray[i]
+            fiveDayHumidity[i].textContent = fiveDayHumidityArray[i]
+
+            var sunny = $('<i class="bi bi-brightness-high"></i>')[0]
+            var moon = $('<i class="bi bi-moon-stars"></i>')[0]
+            var sunnyWithCloud = $('<i class="bi bi-cloud-sun"></i>')[0]
+            var cloudy = $('<i class="bi bi-cloud-fill"></i>')[0]
+            var heavyClouds = $('<i class="bi bi-clouds-fill"></i>')[0]
+            var foggy = $('<i class="bi bi-cloud-haze"></i>')[0]
+            var snow = $('<i class="bi bi-snow2"></i>')[0]
+            var rain = $('<i class="bi bi-cloud-rain"></i>')[0]
+            var thunder = $(
+              '<i class="bi bi-cloud-lightning-rain-fill"></i>'
+            )[0]
+            if (fiveDayWeatherIconArray[i] == '01d') {
+              fiveDayWeatherIcon[i].append(sunny)
+            } else if (fiveDayWeatherIconArray[i] == '01n') {
+              fiveDayWeatherIcon[i].append(moon)
+            } else if (
+              fiveDayWeatherIconArray[i] == '02n' ||
+              fiveDayWeatherIconArray[i] == '02d'
+            ) {
+              fiveDayWeatherIcon[i].append(sunnyWithCloud)
+            } else if (
+              fiveDayWeatherIconArray[i] == '03n' ||
+              fiveDayWeatherIconArray[i] == '03d'
+            ) {
+              fiveDayWeatherIcon[i].append(cloudy)
+            } else if (
+              fiveDayWeatherIconArray[i] == '04n' ||
+              fiveDayWeatherIconArray[i] == '04d'
+            ) {
+              fiveDayWeatherIcon[i].append(heavyClouds)
+            } else if (
+              fiveDayWeatherIconArray[i] == '50n' ||
+              fiveDayWeatherIconArray[i] == '50d'
+            ) {
+              fiveDayWeatherIcon[i].append(foggy)
+            } else if (
+              fiveDayWeatherIconArray[i] == '13n' ||
+              fiveDayWeatherIconArray[i] == '13d'
+            ) {
+              fiveDayWeatherIcon[i].append(snow)
+            } else if (
+              fiveDayWeatherIconArray[i] == '09n' ||
+              fiveDayWeatherIconArray[i] == '09d' ||
+              fiveDayWeatherIconArray[i] == '10n' ||
+              fiveDayWeatherIconArray[i] == '10d'
+            ) {
+              fiveDayWeatherIcon[i].append(rain)
+            } else if (
+              fiveDayWeatherIconArray[i] == '11n' ||
+              fiveDayWeatherIconArray[i] == '11d'
+            ) {
+              fiveDayWeatherIcon[i].append(thunder)
+            } else {
+              console.log(`unknown ${fiveDayWeatherIconArray[i]}`)
+            }
+          }
         })
     })
 }
@@ -207,8 +201,7 @@ searchButton.on('click', () => {
   var searchBar = $('#searchBar').val()
 
   getMainWeather(searchBar)
-  get5DayForecast(searchBar)
-  getUvIndex(searchBar)
+  getUvAnd5Day(searchBar)
   const historyArray = JSON.parse(localStorage.getItem('searchHistory')) ?? []
   historyArray.push(searchBar)
   localStorage.setItem('searchHistory', JSON.stringify(historyArray))
@@ -227,7 +220,6 @@ function setSearchHistoryLi(searchBar) {
   historyUl.append(newLi)
   newLi.on('click', () => {
     getMainWeather(searchBar)
-    get5DayForecast(searchBar)
-    getUvIndex(searchBar)
+    getUvAnd5Day(searchBar)
   })
 }
